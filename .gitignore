@@ -36,3 +36,8 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Mock files to teste ###
+*.txt
+*.ret
+*.rem
