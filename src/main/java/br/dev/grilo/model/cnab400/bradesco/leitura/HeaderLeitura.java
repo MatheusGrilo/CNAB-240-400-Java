@@ -1,13 +1,13 @@
-package br.dev.grilo.model;
+package br.dev.grilo.model.cnab400.bradesco.leitura;
 
 /**
- * Documentação do Header 400 da Bradesco em 28/04/2025:
+ * Documentação do Header CNAB 400 do Bradesco em 28/04/2025:
  * Nº 4008.524.0121 - Versão 17
  * https://banco.bradesco/assets/pessoajuridica/pdf/4008-524-0121-layout-cobranca-versao-portugues.pdf
  * Todos serão armazenados como String, pois normalmente existem casas decimais à esquerda
  * O tamanho total do cabeçalho é de 400 campos
  */
-public class Header400 {
+public class HeaderLeitura {
 
     /**
      * Identificação do Registro
