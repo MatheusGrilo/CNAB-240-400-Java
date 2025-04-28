@@ -193,7 +193,7 @@ public class TransacaoLeitura {
      * Numérico
      * Preencher com zeros
      */
-    private String agenciaDepositária;
+    private String agenciaDepositaria;
 
     /** Espécie de Título
      * 2 campos
@@ -542,12 +542,12 @@ public class TransacaoLeitura {
         this.bancoEncarregadoDaCobranca = bancoEncarregadoDaCobranca;
     }
 
-    public String getAgenciaDepositária() {
-        return agenciaDepositária;
+    public String getAgenciaDepositaria() {
+        return agenciaDepositaria;
     }
 
-    public void setAgenciaDepositária(String agenciaDepositária) {
-        this.agenciaDepositária = agenciaDepositária;
+    public void setAgenciaDepositaria(String agenciaDepositaria) {
+        this.agenciaDepositaria = agenciaDepositaria;
     }
 
     public String getEspecieDeTitulo() {
