@@ -21,4 +21,39 @@ public class StringUtils {
             throw new RuntimeException("Erro ao converter para double: " + texto, e);
         }
     }
+
+    /**
+     * Repete o caractere informado o número de vezes desejado.
+     *
+     * @param caractere Caractere ou texto a ser repetido
+     * @param vezes     Quantidade de vezes que deve se repetir
+     * @return String repetida
+     */
+    public static String repetir(String caractere, int vezes) {
+        if (caractere == null || vezes <= 0) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder(vezes * caractere.length());
+        for (int i = 0; i < vezes; i++) {
+            sb.append(caractere);
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Preenche texto com espaços à direita até o tamanho desejado.
+     */
+    public static String padRight(String texto, int tamanho) {
+        if (texto == null) texto = "";
+        return String.format("%-" + tamanho + "s", texto);
+    }
+
+    /**
+     * Preenche texto com zeros à esquerda até o tamanho desejado.
+     */
+    public static String padLeft(String texto, int tamanho) {
+        if (texto == null) texto = "";
+        return String.format("%" + tamanho + "s", texto).replace(' ', '0');
+    }
 }
