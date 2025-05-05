@@ -1,58 +1,25 @@
 package br.dev.grilo;
 
-import br.dev.grilo.model.cnab400.bradesco.leitura.HeaderLeitura;
-import br.dev.grilo.model.cnab400.bradesco.leitura.TrailerLeitura;
-import br.dev.grilo.model.cnab400.bradesco.leitura.TransacaoLeitura;
-import br.dev.grilo.service.cnab400.EscritaService;
-import br.dev.grilo.service.cnab400.LeituraService;
-import br.dev.grilo.utils.StringUtils;
+import br.dev.grilo.service.cnab400.itau.LeituraService;
 
-import java.util.List;
-import java.util.Scanner;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) {
         LeituraService leituraService = new LeituraService();
-        EscritaService escritaService = new EscritaService();
-
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Digite o caminho do arquivo CNAB 400:");
-//        String caminhoArquivo = scanner.nextLine();
-        String caminhoArquivo = "src/main/resources/mock/BANCO0303984_CB22401.REM";
-        //  src/main/resources/mock/2504242.TXT
-        //  src/main/resources/mock/2504282.TXT
-        //  src/main/resources/mock/2504283.TXT
+        Path caminhoArquivo = Paths.get("src/main/resources/mock/ITAU/2505051.TXT");
 
         try {
-            LeituraService.ResultadoLido resultado = leituraService.lerArquivo(caminhoArquivo);
-            System.out.println("Arquivo lido com sucesso!");
-
-            HeaderLeitura header = resultado.getHeader();
-            TrailerLeitura trailer = resultado.getTrailer();
-            List<TransacaoLeitura> transacoes = resultado.getTransacoes();
-
-            System.out.println("Arquivo de Remessa lido com sucesso!");
-
-            escritaService.gerarArquivoRetorno(caminhoArquivo, header, transacoes, trailer);
-
-            System.out.println("Arquivo de retorno gerado com sucesso!");
-
-//            System.out.println("\n--- HEADER ---");
-//            System.out.println("Empresa: " + header.getNomeDaEmpresa());
-//            System.out.println("Banco: " + header.getNomeDoBancoPorExtenso());
-//
-//            System.out.println("\n--- TRANSACOES ---");
-//            for (TransacaoLeitura transacao : transacoes) {
-//                System.out.println("Pagador: " + transacao.getNomeDoPagador().trim() +
-//                        " | Valor: " + StringUtils.stringParaDouble(transacao.getValorDoTitulo()));
-//            }
-//
-//            System.out.println("\n--- TRAILER ---");
-//            System.out.println("Sequencial: " + trailer.getNumeroSequencialDeRegistro());
-
-        } catch (Exception e) {
-            System.err.println("Erro ao ler o arquivo: " + e.getMessage());
-            e.printStackTrace();
+            leituraService.processarArquivoCnab400(caminhoArquivo);
+            System.out.println("Arquivo processado com sucesso!");
+        } catch (IOException e) {
+            System.err.println("Erro ao processar o arquivo: " + e.getMessage());
+        } catch (IllegalArgumentException e) {
+            System.err.println("Erro ao ler arquivo: " + e.getMessage());
+        } catch (RuntimeException e) {
+            System.err.println("Arquivo inválido: " + e.getMessage());
         }
 
 
