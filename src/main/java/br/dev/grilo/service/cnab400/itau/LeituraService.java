@@ -11,8 +11,13 @@ import java.util.List;
 
 public class LeituraService {
 
+    protected void log(String message) {
+        System.out.println(message);
+    }
+
     public void processarArquivoCnab400(Path arquivoPath) throws IOException {
         List<String> linhas = Files.readAllLines(arquivoPath);
+        log("Arquivo lido com " + linhas.size() + " linhas");
 
         if (linhas.isEmpty()) {
             throw new IllegalArgumentException("Arquivo vazio");
@@ -70,6 +75,11 @@ public class LeituraService {
         if (!"341".equals(codigoBanco)) {
             throw new IllegalArgumentException("Código do banco inválido no header. Esperado: 341, Encontrado: " + codigoBanco);
         }
+
+        String nomeBanco = Header.NOME_DO_BANCO.extrair(linha).trim();
+        String dataGeracao = Header.DATA_DE_GERACAO.extrair(linha);
+
+        log(String.format("Header - Banco: %s, Data: %s", nomeBanco, dataGeracao));
     }
 
     private void processarDetalhe(String linha) {
@@ -78,6 +88,13 @@ public class LeituraService {
             throw new IllegalArgumentException("Código do banco inválido no detalhe");
         }
 
+        String nossoNumero = Detalhe.NOSSO_NUMERO.extrair(linha);
+        String valorTitulo = Detalhe.VALOR_DO_TITULO.extrair(linha);
+        String vencimento = Detalhe.VENCIMENTO.extrair(linha);
+
+        log(String.format("Detalhe - Nosso Número: %s, Valor: %s, Vencimento: %s",
+                nossoNumero, valorTitulo, vencimento));
+
     }
 
     private void processarTrailer(String linha) {
@@ -85,6 +102,8 @@ public class LeituraService {
         if(sequencial.length() != 6) {
             throw new IllegalArgumentException("Número sequencial inválido no trailer. Esperado: 6 dígitos, Encontrado: " + sequencial.length());
         }
+
+        log("Trailer - Sequencial: " + sequencial);
     }
 
 
