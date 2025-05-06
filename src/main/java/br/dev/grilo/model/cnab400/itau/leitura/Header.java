@@ -50,4 +50,21 @@ public enum Header {
     public int getFim() {
         return fim;
     }
+
+    public static boolean validate(String linha) {
+        if (linha.length() != 400) return false;
+        if (!"0".equals(TIPO_DE_REGISTRO.extrair(linha))) return false;
+        if(!"1".equals(OPERACAO.extrair(linha))) return false;
+        if(!"REMESSA".equals(LITERAL_DE_REMESSA.extrair(linha))) return false;
+        if(!"01".equals(CODIGO_DO_SERVICO.extrair(linha))) return false;
+        if(!"COBRANCA       ".equals(LITERAL_DO_SERVICO.extrair(linha))) return false;
+        if(!"00".equals(ZEROS.extrair(linha))) return false;
+        if(!" ".repeat(8).equals(BRANCOS_01.extrair(linha))) return false;
+        if(30 != NOME_DA_EMPRESA.extrair(linha).length()) return false;
+        if (!"341".equals(CODIGO_DO_BANCO.extrair(linha))) return false;
+        if(!"BANCO ITAU SA  ".equals(NOME_DO_BANCO.extrair(linha))) return false;
+        if(!" ".repeat(294).equals(BRANCOS_02.extrair(linha))) return false;
+
+        return true;
+    }
 }
