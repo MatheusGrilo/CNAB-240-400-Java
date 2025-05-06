@@ -4,27 +4,23 @@ import javax.swing.*;
 import java.awt.*;
 
 public class CnabViewerFrame extends JFrame {
-    private final FileSelectorPanel fileSelectorPanel;
+    private final FileProcessingPanel fileProcessingPanel;
     private final LogPanel logPanel;
 
     public CnabViewerFrame() {
-        setTitle("Leitor CNAB 400 - Itaú");
+        setTitle("Leitor CNAB 240/400");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
         setLocationRelativeTo(null);
 
-        // Layout principal
         setLayout(new BorderLayout());
 
-        // Painel de seleção de arquivo (topo)
-        fileSelectorPanel = new FileSelectorPanel(this);
-        add(fileSelectorPanel, BorderLayout.NORTH);
+        fileProcessingPanel = new FileProcessingPanel(this);
+        add(fileProcessingPanel, BorderLayout.NORTH);
 
-        // Painel de logs (centro)
         logPanel = new LogPanel();
         add(new JScrollPane(logPanel), BorderLayout.CENTER);
 
-        // Status bar (rodapé)
         JLabel statusBar = new JLabel(" Pronto");
         add(statusBar, BorderLayout.SOUTH);
     }
